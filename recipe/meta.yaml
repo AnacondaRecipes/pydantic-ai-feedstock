@@ -1,0 +1,74 @@
+{% set name = "pydantic-ai-slim" %}
+{% set version = "1.90.0" %}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
+  sha256: 39e6c8eca29436a6aa9a7440852cb80081ebd54d49b91a1dfbc18dd4a6da77a0
+
+build:
+  number: 0
+
+outputs:
+  - name: pydantic-ai-slim
+    version: {{ version }}
+    build:
+      skip: true  # [py<310]
+      script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+    requirements:
+      host:
+        - pip
+        - python
+        - hatchling
+        - uv-dynamic-versioning
+      run:
+        - python
+        - exceptiongroup >=1.2.2  # [py<311]
+        - genai-prices >=0.0.48
+        - griffe >=2.0
+        - httpx >=0.27
+        - opentelemetry-api >=1.28.0
+        - pydantic-graph =={{ version }}
+        - pydantic >=2.12
+        - typing-inspection >=0.4.0
+    test:
+      imports:
+        - pydantic_ai
+      commands:
+        - pip check
+      requires:
+        - pip
+
+  - name: pydantic-ai
+    version: {{ version }}
+    build:
+      skip: true  # [py<310]
+    requirements:
+      host:
+        - python
+      run:
+        - python
+        - {{ pin_subpackage('pydantic-ai-slim', exact=True) }}
+    test:
+      imports:
+        - pydantic_ai
+      commands:
+        - pip check
+      requires:
+        - pip
+
+about:
+  home: https://ai.pydantic.dev
+  license: MIT
+  license_file: LICENSE
+  license_family: MIT
+  summary: Agent Framework / shim to use Pydantic with LLMs
+  description: |
+    PydanticAI is a Python agent framework designed to make it less painful
+    to build production grade applications with Generative AI.
+  dev_url: https://github.com/pydantic/pydantic-ai
+  doc_url: https://ai.pydantic.dev
+
+extra:
+  recipe-maintainers:
+    - rxm7706
+    - mariusvniekerk
