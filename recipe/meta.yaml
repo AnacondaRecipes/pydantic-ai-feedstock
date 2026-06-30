@@ -1,5 +1,5 @@
 {% set name = "pydantic-ai-slim" %}
-{% set version = "1.90.0" %}
+{% set version = "2.1.0" %}
 
 package:
   name: pydantic-ai-split
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
-  sha256: 39e6c8eca29436a6aa9a7440852cb80081ebd54d49b91a1dfbc18dd4a6da77a0
+  sha256: f79dca2429dbb9d2e32a0e2c613cfb9b9d6f0dc81d42cff8a5c81ede8ca0a6c7
 
 build:
   number: 0
@@ -47,7 +47,6 @@ outputs:
         - pip check
       requires:
         - pip
-
   - name: pydantic-ai
     version: {{ version }}
     build:
