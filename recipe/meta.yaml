@@ -1,13 +1,14 @@
-{% set name = "pydantic-ai-slim" %}
-{% set version = "2.1.0" %}
+{% set name = "pydantic-ai" %}
+{% set name_slim = "pydantic-ai-slim" %}
+{% set version = "2.21.0" %}
 
 package:
-  name: pydantic-ai-split
+  name: {{ name }}-split
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
-  sha256: f79dca2429dbb9d2e32a0e2c613cfb9b9d6f0dc81d42cff8a5c81ede8ca0a6c7
+  url: https://pypi.org/packages/source/{{ name_slim[0] }}/{{ name_slim }}/{{ name_slim.replace('-', '_') }}-{{ version }}.tar.gz
+  sha256: dbcd6566ca1d05541f098aab42bb3464a1e39dfca6fe1af4d8e16f808e79a56c
 
 build:
   number: 0
@@ -19,7 +20,7 @@ requirements:
     - python
 
 outputs:
-  - name: pydantic-ai-slim
+  - name: {{ name_slim }}
     version: {{ version }}
     build:
       skip: true  # [py<310]
@@ -32,14 +33,14 @@ outputs:
         - uv-dynamic-versioning >=0.7.0
       run:
         - python
-        - exceptiongroup >=1.2.2  # [py<311]
-        - genai-prices >=0.0.62
         - griffelib >=2.0
         - httpx >=0.27
-        - opentelemetry-api >=1.28.0
-        - pydantic-graph =={{ version }}
         - pydantic >=2.12
+        - pydantic-graph =={{ version }}
+        - exceptiongroup >=1.2.2  # [py<311]
+        - opentelemetry-api >=1.28.0
         - typing-inspection >=0.4.0
+        - genai-prices >=0.0.70
     test:
       imports:
         - pydantic_ai
@@ -48,7 +49,7 @@ outputs:
       requires:
         - pip
 
-  - name: pydantic-ai
+  - name: {{ name }}
     version: {{ version }}
     build:
       skip: true  # [py<310]
@@ -67,7 +68,7 @@ outputs:
         - pip
 
 about:
-  home: https://ai.pydantic.dev
+  home: https://pydantic.dev/docs/ai/overview/
   license: MIT
   license_file: LICENSE
   license_family: MIT
@@ -76,9 +77,12 @@ about:
     PydanticAI is a Python agent framework designed to make it less painful
     to build production grade applications with Generative AI.
   dev_url: https://github.com/pydantic/pydantic-ai
-  doc_url: https://ai.pydantic.dev
+  doc_url: https://pydantic.dev/docs/ai/overview/
 
 extra:
   recipe-maintainers:
     - rxm7706
     - mariusvniekerk
+  skip-lints:
+    - missing_python_build_tool
+    - wrong_output_script_key
