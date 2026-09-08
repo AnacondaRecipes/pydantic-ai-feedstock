@@ -5,3 +5,5 @@ upstream_sources:
     packages:
       - pydantic-ai-slim
       - pydantic-ai
+      - pydantic-graph
+      - pydantic-evals
