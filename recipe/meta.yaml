@@ -72,7 +72,7 @@ about:
   license: MIT
   license_file: LICENSE
   license_family: MIT
-  summary: Agent Framework / shim to use Pydantic with LLMs
+  summary: Agent Framework / shim to use Pydantic with LLMs.
   description: |
     PydanticAI is a Python agent framework designed to make it less painful
     to build production grade applications with Generative AI.
