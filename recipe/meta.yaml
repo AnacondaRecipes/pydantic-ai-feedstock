@@ -29,7 +29,7 @@ requirements:
     - python
 
 outputs:
-  - name: {{ name.split('-')[0] }}-graph
+  - name: pydantic-graph
     version: {{ version }}
     build:
       number: 0
@@ -57,7 +57,7 @@ outputs:
     about:
       license_file: pydantic-graph/LICENSE
   
-  - name: {{ name }}-slim
+  - name: pydantic-ai-slim
     version: {{ version }}
     build:
       number: 0
@@ -90,7 +90,7 @@ outputs:
     about:
       license_file: pydantic-ai-slim/LICENSE
 
-  - name: {{ name }}
+  - name: pydantic-ai
     version: {{ version }}
     build:
       number: 0
@@ -115,7 +115,7 @@ outputs:
     about:
       license_file: pydantic-ai/LICENSE
   
-  - name: {{ name.split('-')[0] }}-evals
+  - name: pydantic-evals
     version: {{ version }}
     build:
       number: 0
