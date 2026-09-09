@@ -32,6 +32,7 @@ outputs:
   - name: {{ name.split("-")[0] }}-graph
     version: {{ version }}
     build:
+      number: 0
       skip: true  # [py<310]
       script: {{ PYTHON }} -m pip install ./pydantic-graph -vv --no-deps --no-build-isolation
     requirements:
@@ -59,6 +60,7 @@ outputs:
   - name: {{ name }}-slim
     version: {{ version }}
     build:
+      number: 0
       skip: true  # [py<310]
       script: {{ PYTHON }} -m pip install ./pydantic-ai-slim -vv --no-deps --no-build-isolation
     requirements:
@@ -91,6 +93,7 @@ outputs:
   - name: {{ name }}
     version: {{ version }}
     build:
+      number: 0
       skip: true  # [py<310]
       script: {{ PYTHON }} -m pip install ./pydantic-ai -vv --no-deps --no-build-isolation
     requirements:
@@ -115,6 +118,7 @@ outputs:
   - name: {{ name.split("-")[0] }}-evals
     version: {{ version }}
     build:
+      number: 0
       skip: true  # [py<310]
       script: {{ PYTHON }} -m pip install ./pydantic-evals -vv --no-deps --no-build-isolation
     requirements:
