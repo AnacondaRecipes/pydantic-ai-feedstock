@@ -35,6 +35,10 @@ outputs:
     build:
       number: 0
       skip: true  # [py<310]
+      script_env:
+        - OUTPUT_NAME=pydantic-graph
+      script: bash ${RECIPE_DIR}/build_base.sh  # [not win]
+      script: "${RECIPE_DIR}\\build_base.bat"  # [win]
     requirements:
       host:
         - python
@@ -62,6 +66,10 @@ outputs:
     build:
       number: 0
       skip: true  # [py<310]
+      script_env:
+        - OUTPUT_NAME=pydantic-ai-slim
+      script: bash "${RECIPE_DIR}/build_base.sh"  # [not win]
+      script: "${RECIPE_DIR}\\build_base.bat"  # [win]
     requirements:
       host:
         - pip
@@ -94,6 +102,10 @@ outputs:
     build:
       number: 0
       skip: true  # [py<310]
+      script_env:
+        - OUTPUT_NAME=pydantic-ai
+      script: bash "${RECIPE_DIR}/build_base.sh"  # [not win]
+      script: "${RECIPE_DIR}\\build_base.bat"  # [win]
     requirements:
       host:
         - python
@@ -118,6 +130,10 @@ outputs:
     build:
       number: 0
       skip: true  # [py<310]
+      script_env:
+        - OUTPUT_NAME=pydantic-evals
+      script: bash "${RECIPE_DIR}/build_base.sh"  # [not win]
+      script: "${RECIPE_DIR}\\build_base.bat"  # [win]
     requirements:
       host:
         - python
