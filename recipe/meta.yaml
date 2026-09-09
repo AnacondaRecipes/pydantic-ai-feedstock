@@ -75,7 +75,7 @@ outputs:
         - griffelib >=2.0
         - httpx2 >=2.7
         - pydantic >=2.12
-        - pydantic-graph =={{ version }}
+        - {{ pin_subpackage('pydantic-graph', exact=True) }}
         - exceptiongroup >=1.2.2  # [py<311]
         - opentelemetry-api >=1.28.0
         - typing-inspection >=0.4.0
