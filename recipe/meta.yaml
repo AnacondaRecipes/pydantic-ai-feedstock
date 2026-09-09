@@ -22,12 +22,6 @@ source:
 build:
   number: 0
 
-requirements:
-  host:
-    - python
-  run:
-    - python
-
 outputs:
   - name: {{ name.split("-")[0] }}-graph
     version: {{ version }}
