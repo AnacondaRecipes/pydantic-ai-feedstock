@@ -35,9 +35,6 @@ outputs:
     build:
       number: 0
       skip: true  # [py<310]
-      script: 
-        - bash "${RECIPE_DIR}/build_base.sh" pydantic-graph  # [not win]
-        - "${RECIPE_DIR}\\build_base.bat" pydantic-graph  # [win]
     requirements:
       host:
         - python
@@ -65,9 +62,6 @@ outputs:
     build:
       number: 0
       skip: true  # [py<310]
-      script: 
-        - bash "${RECIPE_DIR}/build_base.sh" pydantic-ai-slim  # [not win]
-        - "${RECIPE_DIR}\\build_base.bat" pydantic-ai-slim  # [win]
     requirements:
       host:
         - pip
@@ -100,9 +94,6 @@ outputs:
     build:
       number: 0
       skip: true  # [py<310]
-      script: 
-        - bash "${RECIPE_DIR}/build_base.sh" pydantic-ai  # [not win]
-        - "${RECIPE_DIR}\\build_base.bat" pydantic-ai  # [win]
     requirements:
       host:
         - python
@@ -127,9 +118,6 @@ outputs:
     build:
       number: 0
       skip: true  # [py<310]
-      script: 
-        - bash "${RECIPE_DIR}/build_base.sh" pydantic-evals  # [not win]
-        - "${RECIPE_DIR}\\build_base.bat" pydantic-evals  # [win]
     requirements:
       host:
         - python
