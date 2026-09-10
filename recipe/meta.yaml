@@ -21,12 +21,13 @@ source:
 
 build:
   number: 0
+  noarch: python
 
 requirements:
   host:
-    - python >=310
+    - python >=3.10
   run:
-    - python >=310
+    - python >=3.10
 
 outputs:
   - name: pydantic-graph
