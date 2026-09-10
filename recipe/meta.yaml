@@ -34,7 +34,7 @@ outputs:
     script: build_base.sh  # [not win]
     script: build_base.bat  # [win]
     build:
-      number: 0
+      number: 1
       script_env:
       - OUTPUT_NAME=pydantic-graph
     requirements:
