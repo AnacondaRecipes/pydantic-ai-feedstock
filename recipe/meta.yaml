@@ -36,7 +36,6 @@ outputs:
     script: build_base.bat  # [win]
     build:
       number: 0
-      skip: true  # [py<310]
       script_env:
       - OUTPUT_NAME=pydantic-graph
     requirements:
@@ -67,7 +66,6 @@ outputs:
     script: build_base.bat  # [win]
     build:
       number: 0
-      skip: true  # [py<310]
       script_env:
         - OUTPUT_NAME=pydantic-ai-slim
     requirements:
@@ -103,7 +101,6 @@ outputs:
     script: build_base.bat  # [win]
     build:
       number: 0
-      skip: true  # [py<310]
       script_env:
         - OUTPUT_NAME=pydantic-ai
     requirements:
@@ -131,7 +128,6 @@ outputs:
     script: build_base.bat  # [win]
     build:
       number: 0
-      skip: true  # [py<310]
       script_env:
         - OUTPUT_NAME=pydantic-evals
     requirements:
