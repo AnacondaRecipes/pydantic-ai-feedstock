@@ -1,14 +1,23 @@
 {% set name = "pydantic-ai" %}
-{% set name_slim = "pydantic-ai-slim" %}
-{% set version = "2.21.0" %}
+{% set version = "2.33.0" %}
 
 package:
   name: {{ name }}-split
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name_slim[0] }}/{{ name_slim }}/{{ name_slim.replace('-', '_') }}-{{ version }}.tar.gz
-  sha256: dbcd6566ca1d05541f098aab42bb3464a1e39dfca6fe1af4d8e16f808e79a56c
+  - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
+    sha256: 0709cb6de91cd9f8faa986676f1f2e2283ae27af3c41e69f08411cf12d7535ed
+    folder: pydantic-ai/
+  - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}-slim/{{ name.replace('-', '_') }}_slim-{{ version }}.tar.gz
+    sha256: 7809e3000df0265ee93e7c55ff1d852621a23b22ccb5ad790d9228e457cfb10a
+    folder: pydantic-ai-slim/
+  - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name.split('-')[0] }}-graph/{{ name.split('-')[0] }}_graph-{{ version }}.tar.gz
+    sha256: ff4bfd7f6e10b85b0fb77c85100140733f295e9bd445ed60318221446413e224
+    folder: pydantic-graph/
+  - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name.split('-')[0] }}-evals/{{ name.split('-')[0] }}_evals-{{ version }}.tar.gz
+    sha256: af840c0f1da21df5136c56018bafd659ec71f801d853e8edb32f84ee8e0dedeb
+    folder: pydantic-evals/
 
 build:
   number: 0
@@ -20,27 +29,63 @@ requirements:
     - python
 
 outputs:
-  - name: {{ name_slim }}
+  - name: pydantic-graph
     version: {{ version }}
+    script: build_base.sh  # [not win]
+    script: build_base.bat  # [win]
     build:
+      number: 1
       skip: true  # [py<310]
-      script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+      script_env:
+      - OUTPUT_NAME=pydantic-graph
     requirements:
       host:
-        - pip
         - python
+        - pip
         - hatchling
         - uv-dynamic-versioning >=0.7.0
       run:
         - python
-        - griffelib >=2.0
-        - httpx >=0.27
+        - anyio >=4.7.0
+        - logfire-api >=3.14.1
         - pydantic >=2.12
-        - pydantic-graph =={{ version }}
+        - typing-inspection >=0.4.0
+    test:
+      imports:
+        - pydantic_graph
+      commands:
+        - pip check
+      requires:
+        - pip
+    about:
+      license_file: pydantic-graph/LICENSE
+  
+  - name: pydantic-ai-slim
+    version: {{ version }}
+    script: build_base.sh  # [not win]
+    script: build_base.bat  # [win]
+    build:
+      number: 0
+      skip: true  # [py<310]
+      script_env:
+        - OUTPUT_NAME=pydantic-ai-slim
+    requirements:
+      host:
+        - python
+        - pip
+        - hatchling
+        - uv-dynamic-versioning >=0.7.0
+      run:
+        - python
+        - anyio >=4.7.0
+        - griffelib >=2.0
+        - httpx2 >=2.7
+        - pydantic >=2.12
+        - {{ pin_subpackage('pydantic-graph', exact=True) }}
         - exceptiongroup >=1.2.2  # [py<311]
         - opentelemetry-api >=1.28.0
         - typing-inspection >=0.4.0
-        - genai-prices >=0.0.70
+        - genai-prices >=0.1.0
     test:
       imports:
         - pydantic_ai
@@ -48,14 +93,24 @@ outputs:
         - pip check
       requires:
         - pip
+    about:
+      license_file: pydantic-ai-slim/LICENSE
 
-  - name: {{ name }}
+  - name: pydantic-ai
     version: {{ version }}
+    script: build_base.sh  # [not win]
+    script: build_base.bat  # [win]
     build:
+      number: 0
       skip: true  # [py<310]
+      script_env:
+        - OUTPUT_NAME=pydantic-ai
     requirements:
       host:
         - python
+        - pip
+        - hatchling
+        - uv-dynamic-versioning >=0.7.0
       run:
         - python
         - {{ pin_subpackage('pydantic-ai-slim', exact=True) }}
@@ -66,13 +121,47 @@ outputs:
         - pip check
       requires:
         - pip
+    about:
+      license_file: pydantic-ai/LICENSE
+  
+  - name: pydantic-evals
+    version: {{ version }}
+    script: build_base.sh  # [not win]
+    script: build_base.bat  # [win]
+    build:
+      number: 0
+      skip: true  # [py<310]
+      script_env:
+        - OUTPUT_NAME=pydantic-evals
+    requirements:
+      host:
+        - python
+        - pip
+        - hatchling
+        - uv-dynamic-versioning >=0.7.0
+      run:
+        - python
+        - rich >=13.9.4
+        - logfire-api >=3.14.1
+        - pydantic >=2.12
+        - {{ pin_subpackage('pydantic-ai-slim', exact=True) }}
+        - anyio >=4.7.0
+        - pyyaml >=6.0.2
+    test:
+      imports:
+        - pydantic_evals
+      commands:
+        - pip check
+      requires:
+        - pip
+    about:
+      license_file: pydantic-evals/LICENSE
 
 about:
   home: https://pydantic.dev/docs/ai/overview/
   license: MIT
-  license_file: LICENSE
   license_family: MIT
-  summary: Agent Framework / shim to use Pydantic with LLMs
+  summary: Agent Framework / shim to use Pydantic with LLMs.
   description: |
     PydanticAI is a Python agent framework designed to make it less painful
     to build production grade applications with Generative AI.
@@ -86,3 +175,4 @@ extra:
   skip-lints:
     - missing_python_build_tool
     - wrong_output_script_key
+    - missing_pip_check

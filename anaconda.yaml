@@ -4,4 +4,15 @@ upstream_sources:
       identifier: pydantic-ai-slim
     packages:
       - pydantic-ai-slim
+  - pypi:
+      identifier: pydantic-ai
+    packages:
       - pydantic-ai
+  - pypi:
+      identifier: pydantic-graph
+    packages:
+      - pydantic-graph
+  - pypi:
+      identifier: pydantic-evals
+    packages:
+      - pydantic-evals
