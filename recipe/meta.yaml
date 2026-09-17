@@ -1,5 +1,5 @@
 {% set name = "pydantic-ai" %}
-{% set version = "2.33.0" %}
+{% set version = "2.44.0" %}
 
 package:
   name: {{ name }}-split
@@ -7,16 +7,16 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
-    sha256: 0709cb6de91cd9f8faa986676f1f2e2283ae27af3c41e69f08411cf12d7535ed
+    sha256: b8402d7f265b9acf626b8c2c998f7a88a5e4e5d5dac4a0b9cdf81aa8621c624b
     folder: pydantic-ai/
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}-slim/{{ name.replace('-', '_') }}_slim-{{ version }}.tar.gz
-    sha256: 7809e3000df0265ee93e7c55ff1d852621a23b22ccb5ad790d9228e457cfb10a
+    sha256: 88be3150dc6c89383e4dd596414dda3479c2773ee6e9e40789596d82fc34a783
     folder: pydantic-ai-slim/
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name.split('-')[0] }}-graph/{{ name.split('-')[0] }}_graph-{{ version }}.tar.gz
-    sha256: ff4bfd7f6e10b85b0fb77c85100140733f295e9bd445ed60318221446413e224
+    sha256: e6d62aa8579b83815b9adcb3dbff210647951ef4fa5f6526b24ee9d168d385bb
     folder: pydantic-graph/
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name.split('-')[0] }}-evals/{{ name.split('-')[0] }}_evals-{{ version }}.tar.gz
-    sha256: af840c0f1da21df5136c56018bafd659ec71f801d853e8edb32f84ee8e0dedeb
+    sha256: f3adf1b9de1596b9b770b5dd9252e2f88bcec7fed0d7e41463bc48bcd7ce9956
     folder: pydantic-evals/
 
 build:
@@ -37,7 +37,7 @@ outputs:
       number: 1
       skip: true  # [py<310]
       script_env:
-      - OUTPUT_NAME=pydantic-graph
+        - OUTPUT_NAME=pydantic-graph
     requirements:
       host:
         - python
@@ -59,7 +59,6 @@ outputs:
         - pip
     about:
       license_file: pydantic-graph/LICENSE
-  
   - name: pydantic-ai-slim
     version: {{ version }}
     script: build_base.sh  # [not win]
@@ -95,7 +94,6 @@ outputs:
         - pip
     about:
       license_file: pydantic-ai-slim/LICENSE
-
   - name: pydantic-ai
     version: {{ version }}
     script: build_base.sh  # [not win]
@@ -123,7 +121,6 @@ outputs:
         - pip
     about:
       license_file: pydantic-ai/LICENSE
-  
   - name: pydantic-evals
     version: {{ version }}
     script: build_base.sh  # [not win]
