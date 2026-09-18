@@ -1,5 +1,5 @@
 {% set name = "pydantic-ai" %}
-{% set version = "2.44.0" %}
+{% set version = "2.45.0" %}
 
 package:
   name: {{ name }}-split
@@ -7,16 +7,16 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
-    sha256: b8402d7f265b9acf626b8c2c998f7a88a5e4e5d5dac4a0b9cdf81aa8621c624b
+    sha256: e2ca1813003628203fd827b20c0dfc5ddb7bd3fb0cba30becb01a9070abb239c
     folder: pydantic-ai/
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}-slim/{{ name.replace('-', '_') }}_slim-{{ version }}.tar.gz
-    sha256: 88be3150dc6c89383e4dd596414dda3479c2773ee6e9e40789596d82fc34a783
+    sha256: 34cf5216ebe05cb3d343129bb24a1bd011c66e89dd620f00afa982bd2484e3bf
     folder: pydantic-ai-slim/
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name.split('-')[0] }}-graph/{{ name.split('-')[0] }}_graph-{{ version }}.tar.gz
-    sha256: e6d62aa8579b83815b9adcb3dbff210647951ef4fa5f6526b24ee9d168d385bb
+    sha256: c07e8cee55f25d79ea2ea55de67fc67d0353ec2807e3a1328f42995edf022c23
     folder: pydantic-graph/
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name.split('-')[0] }}-evals/{{ name.split('-')[0] }}_evals-{{ version }}.tar.gz
-    sha256: f3adf1b9de1596b9b770b5dd9252e2f88bcec7fed0d7e41463bc48bcd7ce9956
+    sha256: 1ee1064036d2213155819a90c0edebfb2f8b446ad20abb9e54e279f3c59a9ac5
     folder: pydantic-evals/
 
 build:
@@ -84,7 +84,7 @@ outputs:
         - exceptiongroup >=1.2.2  # [py<311]
         - opentelemetry-api >=1.28.0
         - typing-inspection >=0.4.0
-        - genai-prices >=0.1.0
+        - genai-prices >=0.1.6
     test:
       imports:
         - pydantic_ai
