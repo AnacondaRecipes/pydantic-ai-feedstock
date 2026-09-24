@@ -1,5 +1,5 @@
 {% set name = "pydantic-ai" %}
-{% set version = "2.33.0" %}
+{% set version = "2.45.0" %}
 
 package:
   name: {{ name }}-split
@@ -7,16 +7,16 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
-    sha256: 0709cb6de91cd9f8faa986676f1f2e2283ae27af3c41e69f08411cf12d7535ed
+    sha256: e2ca1813003628203fd827b20c0dfc5ddb7bd3fb0cba30becb01a9070abb239c
     folder: pydantic-ai/
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}-slim/{{ name.replace('-', '_') }}_slim-{{ version }}.tar.gz
-    sha256: 7809e3000df0265ee93e7c55ff1d852621a23b22ccb5ad790d9228e457cfb10a
+    sha256: 34cf5216ebe05cb3d343129bb24a1bd011c66e89dd620f00afa982bd2484e3bf
     folder: pydantic-ai-slim/
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name.split('-')[0] }}-graph/{{ name.split('-')[0] }}_graph-{{ version }}.tar.gz
-    sha256: ff4bfd7f6e10b85b0fb77c85100140733f295e9bd445ed60318221446413e224
+    sha256: c07e8cee55f25d79ea2ea55de67fc67d0353ec2807e3a1328f42995edf022c23
     folder: pydantic-graph/
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name.split('-')[0] }}-evals/{{ name.split('-')[0] }}_evals-{{ version }}.tar.gz
-    sha256: af840c0f1da21df5136c56018bafd659ec71f801d853e8edb32f84ee8e0dedeb
+    sha256: 1ee1064036d2213155819a90c0edebfb2f8b446ad20abb9e54e279f3c59a9ac5
     folder: pydantic-evals/
 
 build:
@@ -34,10 +34,10 @@ outputs:
     script: build_base.sh  # [not win]
     script: build_base.bat  # [win]
     build:
-      number: 1
+      number: 0
       skip: true  # [py<310]
       script_env:
-      - OUTPUT_NAME=pydantic-graph
+        - OUTPUT_NAME=pydantic-graph
     requirements:
       host:
         - python
@@ -58,8 +58,16 @@ outputs:
       requires:
         - pip
     about:
+      home: https://pydantic.dev/docs/ai/graph/graph/
+      license: MIT
+      license_family: MIT
       license_file: pydantic-graph/LICENSE
-  
+      summary: Graph and state machine library
+      description: |
+        PydanticAI is a Python agent framework designed to make it less painful
+        to build production grade applications with Generative AI.
+      dev_url: https://github.com/pydantic/pydantic-ai
+      doc_url: https://pydantic.dev/docs/ai/graph/graph/
   - name: pydantic-ai-slim
     version: {{ version }}
     script: build_base.sh  # [not win]
@@ -85,7 +93,7 @@ outputs:
         - exceptiongroup >=1.2.2  # [py<311]
         - opentelemetry-api >=1.28.0
         - typing-inspection >=0.4.0
-        - genai-prices >=0.1.0
+        - genai-prices >=0.1.6
     test:
       imports:
         - pydantic_ai
@@ -94,8 +102,16 @@ outputs:
       requires:
         - pip
     about:
+      home: https://pydantic.dev/docs/ai/overview/
+      license: MIT
+      license_family: MIT
       license_file: pydantic-ai-slim/LICENSE
-
+      summary: AI Agent Framework, the Pydantic way, slim package
+      description: |
+        PydanticAI is a Python agent framework designed to make it less painful
+        to build production grade applications with Generative AI.
+      dev_url: https://github.com/pydantic/pydantic-ai
+      doc_url: https://pydantic.dev/docs/ai/overview/install/#slim-install
   - name: pydantic-ai
     version: {{ version }}
     script: build_base.sh  # [not win]
@@ -114,16 +130,37 @@ outputs:
       run:
         - python
         - {{ pin_subpackage('pydantic-ai-slim', exact=True) }}
+        # hatchling generates the `pai` console script from [project.scripts] in
+        # every install, but its imports live in upstream's `cli` extra. Pull
+        # them in here so `pai` works out of the box; drop these and rely on the
+        # `clai` package once it lands on the main channel.
+        - argcomplete >=3.5.0
+        - prompt-toolkit >=3
+        - pyperclip >=1.9.0
+        - rich >=13
     test:
       imports:
         - pydantic_ai
       commands:
         - pip check
+        # `pai` is the packaged console script, but on Windows the pip-generated
+        # Scripts\pai.exe embeds the build-time interpreter path and is not
+        # rewritten at install, so it cannot run. Exercise the CLI through the
+        # module instead, which covers the same imports on every platform.
+        - python -m pydantic_ai --help
       requires:
         - pip
     about:
+      home: https://pydantic.dev/docs/ai/
+      license: MIT
+      license_family: MIT
       license_file: pydantic-ai/LICENSE
-  
+      summary: AI Agent Framework, the Pydantic way
+      description: |
+        PydanticAI is a Python agent framework designed to make it less painful
+        to build production grade applications with Generative AI.
+      dev_url: https://github.com/pydantic/pydantic-ai
+      doc_url: https://pydantic.dev/docs/ai/
   - name: pydantic-evals
     version: {{ version }}
     script: build_base.sh  # [not win]
@@ -155,7 +192,16 @@ outputs:
       requires:
         - pip
     about:
+      home: https://pydantic.dev/docs/ai/evals/evals/
+      license: MIT
+      license_family: MIT
       license_file: pydantic-evals/LICENSE
+      summary: Framework for evaluating stochastic code execution, especially code making use of LLMs
+      description: |
+        PydanticAI is a Python agent framework designed to make it less painful
+        to build production grade applications with Generative AI.
+      dev_url: https://github.com/pydantic/pydantic-ai
+      doc_url: https://pydantic.dev/docs/ai/evals/evals/
 
 about:
   home: https://pydantic.dev/docs/ai/overview/
@@ -175,4 +221,3 @@ extra:
   skip-lints:
     - missing_python_build_tool
     - wrong_output_script_key
-    - missing_pip_check
