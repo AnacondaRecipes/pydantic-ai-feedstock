@@ -130,11 +130,20 @@ outputs:
       run:
         - python
         - {{ pin_subpackage('pydantic-ai-slim', exact=True) }}
+        # hatchling generates the `pai` console script from [project.scripts] in
+        # every install, but its imports live in upstream's `cli` extra. Pull
+        # them in here so `pai` works out of the box; drop these and rely on the
+        # `clai` package once it lands on the main channel.
+        - argcomplete >=3.5.0
+        - prompt-toolkit >=3
+        - pyperclip >=1.9.0
+        - rich >=13
     test:
       imports:
         - pydantic_ai
       commands:
         - pip check
+        - pai --help
       requires:
         - pip
     about:
