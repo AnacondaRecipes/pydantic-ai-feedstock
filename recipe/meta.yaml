@@ -143,7 +143,11 @@ outputs:
         - pydantic_ai
       commands:
         - pip check
-        - pai --help
+        # `pai` is the packaged console script, but on Windows the pip-generated
+        # Scripts\pai.exe embeds the build-time interpreter path and is not
+        # rewritten at install, so it cannot run. Exercise the CLI through the
+        # module instead, which covers the same imports on every platform.
+        - python -m pydantic_ai --help
       requires:
         - pip
     about:
