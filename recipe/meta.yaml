@@ -34,7 +34,7 @@ outputs:
     script: build_base.sh  # [not win]
     script: build_base.bat  # [win]
     build:
-      number: 1
+      number: 0
       skip: true  # [py<310]
       script_env:
         - OUTPUT_NAME=pydantic-graph
@@ -58,7 +58,16 @@ outputs:
       requires:
         - pip
     about:
+      home: https://pydantic.dev/docs/ai/graph/graph/
+      license: MIT
+      license_family: MIT
       license_file: pydantic-graph/LICENSE
+      summary: Graph and state machine library
+      description: |
+        PydanticAI is a Python agent framework designed to make it less painful
+        to build production grade applications with Generative AI.
+      dev_url: https://github.com/pydantic/pydantic-ai
+      doc_url: https://pydantic.dev/docs/ai/graph/graph/
   - name: pydantic-ai-slim
     version: {{ version }}
     script: build_base.sh  # [not win]
@@ -93,7 +102,16 @@ outputs:
       requires:
         - pip
     about:
+      home: https://pydantic.dev/docs/ai/overview/
+      license: MIT
+      license_family: MIT
       license_file: pydantic-ai-slim/LICENSE
+      summary: AI Agent Framework, the Pydantic way, slim package
+      description: |
+        PydanticAI is a Python agent framework designed to make it less painful
+        to build production grade applications with Generative AI.
+      dev_url: https://github.com/pydantic/pydantic-ai
+      doc_url: https://pydantic.dev/docs/ai/overview/install/#slim-install
   - name: pydantic-ai
     version: {{ version }}
     script: build_base.sh  # [not win]
@@ -120,7 +138,16 @@ outputs:
       requires:
         - pip
     about:
+      home: https://pydantic.dev/docs/ai/
+      license: MIT
+      license_family: MIT
       license_file: pydantic-ai/LICENSE
+      summary: AI Agent Framework, the Pydantic way
+      description: |
+        PydanticAI is a Python agent framework designed to make it less painful
+        to build production grade applications with Generative AI.
+      dev_url: https://github.com/pydantic/pydantic-ai
+      doc_url: https://pydantic.dev/docs/ai/
   - name: pydantic-evals
     version: {{ version }}
     script: build_base.sh  # [not win]
@@ -152,7 +179,16 @@ outputs:
       requires:
         - pip
     about:
+      home: https://pydantic.dev/docs/ai/evals/evals/
+      license: MIT
+      license_family: MIT
       license_file: pydantic-evals/LICENSE
+      summary: Framework for evaluating stochastic code execution, especially code making use of LLMs
+      description: |
+        PydanticAI is a Python agent framework designed to make it less painful
+        to build production grade applications with Generative AI.
+      dev_url: https://github.com/pydantic/pydantic-ai
+      doc_url: https://pydantic.dev/docs/ai/evals/evals/
 
 about:
   home: https://pydantic.dev/docs/ai/overview/
@@ -172,4 +208,3 @@ extra:
   skip-lints:
     - missing_python_build_tool
     - wrong_output_script_key
-    - missing_pip_check
