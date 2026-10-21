@@ -68,6 +68,7 @@ outputs:
         to build production grade applications with Generative AI.
       dev_url: https://github.com/pydantic/pydantic-ai
       doc_url: https://pydantic.dev/docs/ai/graph/graph/
+
   - name: pydantic-ai-slim
     version: {{ version }}
     script: build_base.sh  # [not win]
@@ -111,6 +112,7 @@ outputs:
         to build production grade applications with Generative AI.
       dev_url: https://github.com/pydantic/pydantic-ai
       doc_url: https://pydantic.dev/docs/ai/overview/install/#slim-install
+
   - name: pydantic-ai
     version: {{ version }}
     script: build_base.sh  # [not win]
@@ -160,6 +162,7 @@ outputs:
         to build production grade applications with Generative AI.
       dev_url: https://github.com/pydantic/pydantic-ai
       doc_url: https://pydantic.dev/docs/ai/
+
   - name: pydantic-evals
     version: {{ version }}
     script: build_base.sh  # [not win]
