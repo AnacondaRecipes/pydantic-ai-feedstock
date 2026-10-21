@@ -1,5 +1,5 @@
 {% set name = "pydantic-ai" %}
-{% set version = "2.45.0" %}
+{% set version = "2.57.0" %}
 
 package:
   name: {{ name }}-split
@@ -7,16 +7,16 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
-    sha256: e2ca1813003628203fd827b20c0dfc5ddb7bd3fb0cba30becb01a9070abb239c
+    sha256: 386b190e0bd9d49ddaf9b61cc8fb6013b1ae5a38346e5865bd4ab5ded5c05e2e
     folder: pydantic-ai/
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}-slim/{{ name.replace('-', '_') }}_slim-{{ version }}.tar.gz
-    sha256: 34cf5216ebe05cb3d343129bb24a1bd011c66e89dd620f00afa982bd2484e3bf
+    sha256: 2c5c150bcd097e6a1e267ea13e7f279a0b504d46b346a4e00b61e1996ad05372
     folder: pydantic-ai-slim/
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name.split('-')[0] }}-graph/{{ name.split('-')[0] }}_graph-{{ version }}.tar.gz
-    sha256: c07e8cee55f25d79ea2ea55de67fc67d0353ec2807e3a1328f42995edf022c23
+    sha256: f848857baab4030c44b30de0c3ba650749d60f2295a0723645fb325f92191cf1
     folder: pydantic-graph/
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name.split('-')[0] }}-evals/{{ name.split('-')[0] }}_evals-{{ version }}.tar.gz
-    sha256: 1ee1064036d2213155819a90c0edebfb2f8b446ad20abb9e54e279f3c59a9ac5
+    sha256: 157eae8d293a9ae44bcaafd37ffe7f3f7dfac59184cb8bc190648cacb07e6590
     folder: pydantic-evals/
 
 build:
@@ -35,7 +35,7 @@ outputs:
     script: build_base.bat  # [win]
     build:
       number: 0
-      skip: true  # [py<310]
+      skip: true  # [py<311]
       script_env:
         - OUTPUT_NAME=pydantic-graph
     requirements:
@@ -68,13 +68,14 @@ outputs:
         to build production grade applications with Generative AI.
       dev_url: https://github.com/pydantic/pydantic-ai
       doc_url: https://pydantic.dev/docs/ai/graph/graph/
+
   - name: pydantic-ai-slim
     version: {{ version }}
     script: build_base.sh  # [not win]
     script: build_base.bat  # [win]
     build:
       number: 0
-      skip: true  # [py<310]
+      skip: true  # [py<311]
       script_env:
         - OUTPUT_NAME=pydantic-ai-slim
     requirements:
@@ -90,10 +91,9 @@ outputs:
         - httpx2 >=2.7
         - pydantic >=2.12
         - {{ pin_subpackage('pydantic-graph', exact=True) }}
-        - exceptiongroup >=1.2.2  # [py<311]
         - opentelemetry-api >=1.28.0
         - typing-inspection >=0.4.0
-        - genai-prices >=0.1.6
+        - genai-prices >=0.1.13
     test:
       imports:
         - pydantic_ai
@@ -112,13 +112,14 @@ outputs:
         to build production grade applications with Generative AI.
       dev_url: https://github.com/pydantic/pydantic-ai
       doc_url: https://pydantic.dev/docs/ai/overview/install/#slim-install
+
   - name: pydantic-ai
     version: {{ version }}
     script: build_base.sh  # [not win]
     script: build_base.bat  # [win]
     build:
       number: 0
-      skip: true  # [py<310]
+      skip: true  # [py<311]
       script_env:
         - OUTPUT_NAME=pydantic-ai
     requirements:
@@ -161,13 +162,14 @@ outputs:
         to build production grade applications with Generative AI.
       dev_url: https://github.com/pydantic/pydantic-ai
       doc_url: https://pydantic.dev/docs/ai/
+
   - name: pydantic-evals
     version: {{ version }}
     script: build_base.sh  # [not win]
     script: build_base.bat  # [win]
     build:
       number: 0
-      skip: true  # [py<310]
+      skip: true  # [py<311]
       script_env:
         - OUTPUT_NAME=pydantic-evals
     requirements:
